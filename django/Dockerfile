@@ -2,6 +2,8 @@
 
 FROM python:3.10.5-slim-buster as builder
 
+ARG PIP_OPTION=''
+
 WORKDIR /tmp
 
 COPY ./src ./src \
@@ -10,7 +12,7 @@ COPY ./src ./src \
 
 RUN pip install --upgrade --no-cache-dir pip==22.1.2 && \
     pip install --no-cache-dir pipenv==2022.6.7 && \
-    pipenv sync --system && \
+    pipenv sync --system ${PIP_OPTION} && \
     pip uninstall -y pipenv
 
 
@@ -25,5 +27,5 @@ USER ${USER}
 
 WORKDIR ${WORKDIR}
 
-COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packa
-COPY --from=builder /tmp/src ./src
+COPY --from=builder /usr/local/lib/python3.10/site-packages /usr/local/lib/python3.10/site-packages
+COPY --from=builder /tmp/src ./
