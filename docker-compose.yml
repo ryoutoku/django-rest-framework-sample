@@ -1,0 +1,45 @@
+# for development
+# use python manage.py runserver
+version: '3.9'
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+    env_file:
+      - ./local.env
+    networks: 
+      - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  django:
+    build:
+      context: ./django
+      dockerfile: Dockerfile
+      args: 
+        - PIP_OPTION=--dev
+    command: >
+      bash -c '
+      python manage.py migrate --database writer &&
+      python manage.py runserver 8080
+      '
+    volumes:
+      - ./django/src/:/app
+    env_file:
+      - ./local.env
+    networks: 
+      - backend
+    ports:
+      - 8080:8080
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+networks:
+  backend:
+    external: false
