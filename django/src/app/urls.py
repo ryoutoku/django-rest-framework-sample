@@ -14,17 +14,32 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView
+)
+
 urlpatterns = [
+    # admin
     path('admin/', admin.site.urls),
+
+    # jwt token
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+
+    # apps
+    path('api/', include('account.urls'))
 ]
 
 
 # DEBUG時のみ使用するdebugger
 if settings.DEBUG:
-    from django.urls import re_path, include
+    from django.urls import re_path
     from rest_framework import permissions
     from drf_yasg.views import get_schema_view
     from drf_yasg import openapi
