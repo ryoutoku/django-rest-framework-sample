@@ -23,7 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
+
 # Application definition
+AUTH_USER_MODEL = 'account.User'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -35,7 +37,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
-    'accounts'
+    'account'
 ]
 
 MIDDLEWARE = [
