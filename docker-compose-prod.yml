@@ -17,7 +17,7 @@ services:
       timeout: 5s
       retries: 5
 
-  django_prod:
+  django-prod:
     build:
       context: ./django
       dockerfile: Dockerfile
@@ -36,6 +36,9 @@ services:
       - ./django/src/:/app
     env_file:
       - ./local.env
+    environment:
+      # local.envは共通。SETTING_MODULE上書き
+      - DJANGO_SETTINGS_MODULE=app.settings.production
     networks: 
       - backend
     depends_on:
@@ -54,7 +57,7 @@ services:
     ports:
       - 80:80
     depends_on:
-      django:
+      django-prod:
         condition: service_started
 
 networks:

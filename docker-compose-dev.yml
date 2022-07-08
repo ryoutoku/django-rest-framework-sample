@@ -17,7 +17,7 @@ services:
       timeout: 5s
       retries: 5
 
-  django_dev:
+  django-dev:
     build:
       context: ./django
       dockerfile: Dockerfile
