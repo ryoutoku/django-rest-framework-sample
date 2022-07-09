@@ -21,6 +21,7 @@ services:
     build:
       context: ./django
       dockerfile: Dockerfile
+      target: production
     command: >
       bash -c '
       python manage.py migrate --database writer &&

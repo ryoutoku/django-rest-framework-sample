@@ -21,8 +21,7 @@ services:
     build:
       context: ./django
       dockerfile: Dockerfile
-      args: 
-        - PIP_OPTION=--dev
+      target: development
     command: >
       bash -c '
       python manage.py migrate --database writer &&
