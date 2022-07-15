@@ -39,7 +39,10 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
-    def create_staffuser(self, email, password, **extra_fields) -> AbstractBaseUser:
+    def create_staffuser(self,
+                         email,
+                         password,
+                         **extra_fields) -> AbstractBaseUser:
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", False)
 
@@ -50,7 +53,10 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
-    def create_superuser(self, email, password, **extra_fields) -> AbstractBaseUser:
+    def create_superuser(self,
+                         email,
+                         password,
+                         **extra_fields) -> AbstractBaseUser:
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
 
