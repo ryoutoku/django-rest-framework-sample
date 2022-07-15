@@ -25,6 +25,7 @@ services:
       - backend
 
   django-prod:
+    container_name: django
     build:
       context: ./django
       dockerfile: Dockerfile
