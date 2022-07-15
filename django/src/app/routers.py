@@ -20,9 +20,7 @@ class AppRouter:
         return self.write_db
 
     def allow_relation(self, obj1, obj2, **hints):
-        if obj1._state.db in self.db_list and obj2._state.db in self.db_list:
-            return True
-        return None
+        return True
 
     def allow_migrate(self, db, app_label, model_name=None, **hints):
         return True
