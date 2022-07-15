@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
-    'account'
+    'django_celery_results',
+    'account',
 ]
 
 MIDDLEWARE = [
@@ -167,3 +168,7 @@ REST_FRAMEWORK = {
         'djangorestframework_camel_case.parser.CamelCaseJSONParser',
     ),
 }
+
+CELERY_TASK_TRACK_STARTED = True
+CELERY_BROKER_URL = os.environ['REDIS_URL']
+CELERY_RESULT_BACKEND = "django-db"

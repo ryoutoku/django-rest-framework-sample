@@ -11,6 +11,9 @@ djangorestframework-camel-case = "*"
 psycopg2-binary = "*"
 gunicorn = "*"
 djangorestframework-simplejwt = "*"
+celery = "*"
+django-celery-results = "*"
+redis = "*"
 
 [dev-packages]
 autopep8 = "*"

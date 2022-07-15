@@ -17,6 +17,13 @@ services:
       timeout: 5s
       retries: 5
 
+  redis:
+    image: "redis:latest"
+    volumes:
+      - "./redis:/data"
+    networks:
+      - backend
+
   django-dev:
     build:
       context: ./django
@@ -38,6 +45,25 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+
+  celery:
+    build:
+      context: ./django
+      dockerfile: Dockerfile
+      target: development
+    container_name: celery
+    networks:
+      - backend
+    env_file:
+      - ./local.env
+    volumes:
+      - ./django/src:/app
+    tty: true
+    command: >
+      python -m celery -A app worker --concurrency=1 -l info
+    depends_on:
+      redis:
+        condition: service_started
 
 networks:
   backend:
