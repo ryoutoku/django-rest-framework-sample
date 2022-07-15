@@ -90,6 +90,9 @@ DATABASES = {
         'PASSWORD': os.environ['WRITER_PGPASSWORD'],
         'HOST': os.environ['WRITER_HOST'],
         'PORT': os.environ['WRITER_PGPORT'],
+        'TEST': {
+            'DEPENDENCIES': [],
+        },
     },
     # reader用DB設定
     # writerのreplica想定
@@ -100,6 +103,10 @@ DATABASES = {
         'PASSWORD': os.environ['READER_PGPASSWORD'],
         'HOST': os.environ['READER_HOST'],
         'PORT': os.environ['READER_PGPORT'],
+        'TEST': {
+            'DEPENDENCIES': [WRITER_DATABASE, ],
+            'MIRROR': WRITER_DATABASE
+        },
     }
 }
 

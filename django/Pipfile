@@ -21,6 +21,8 @@ flake8 = "*"
 drf-yasg = "*"
 django-silk = "*"
 factory-boy = "*"
+parameterized = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.10"
